@@ -15,6 +15,11 @@ public class ItemDatabase : MonoBehaviour {
         return v_items.Find(item => item.id == id);
     }
 
+    public int MaxItemCount() // Devuelve el conteo máximo en int de la lista de items
+    {
+        return v_items.Count;
+    }
+
     void BuildItemDatabase()
     {
         v_items = new List<Item>()

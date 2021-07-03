@@ -840,6 +840,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentGold: 0
   requestInProgress: 1
+  v_inventory: {fileID: 0}
+  requestText: {fileID: 2098424663}
+  v_texto: 
 --- !u!1 &964790277
 GameObject:
   m_ObjectHideFlags: 0
@@ -1045,7 +1048,6 @@ GameObject:
   - component: {fileID: 1030093807}
   - component: {fileID: 1030093811}
   - component: {fileID: 1030093812}
-  - component: {fileID: 1030093813}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1155,25 +1157,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   v_player: {fileID: 0}
   v_Npc: {fileID: 0}
---- !u!114 &1030093813
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1030093806}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 34c0f2a5c321c664abbaa143e8ec4a69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dayStart: 0
-  dayEnd: 0
-  dayTimer: {fileID: 0}
-  clientTimer: {fileID: 0}
-  clientStart: 0
-  clientEnd: 0
-  menuContainer: {fileID: 0}
 --- !u!1 &1040671643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1792,6 +1775,7 @@ RectTransform:
   - {fileID: 1257925271}
   - {fileID: 1524994105}
   - {fileID: 1040671644}
+  - {fileID: 2098424662}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2977,7 +2961,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1030093813}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: TimerShop, Assembly-CSharp
         m_MethodName: timerButton
         m_Mode: 1
@@ -3073,6 +3057,85 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2006764050}
   m_CullTransparentMesh: 0
+--- !u!1 &2098424661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2098424662}
+  - component: {fileID: 2098424664}
+  - component: {fileID: 2098424663}
+  m_Layer: 5
+  m_Name: requestText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2098424662
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098424661}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1280585366}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -190.329, y: 255.356}
+  m_SizeDelta: {x: 619.342, y: 75.287}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2098424663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098424661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 1
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &2098424664
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2098424661}
+  m_CullTransparentMesh: 1
 --- !u!1 &1169486871293815 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1169486833617712, guid: af8d3fa1bce82dc4e95c002e339e1fa7,

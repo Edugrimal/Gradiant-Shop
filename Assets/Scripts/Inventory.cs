@@ -6,11 +6,11 @@ public class Inventory : MonoBehaviour {
     public List<Item> playerItems = new List<Item>();
     [SerializeField]
     private UIInventory inventoryUI;
-    ItemDatabase itemDatabase;
+    ItemDatabase v_itemDatabase;
 
     private void Awake()
     {
-        itemDatabase = FindObjectOfType<ItemDatabase>();
+        v_itemDatabase = FindObjectOfType<ItemDatabase>();
         
     }
 
@@ -25,10 +25,19 @@ public class Inventory : MonoBehaviour {
 
     public void GiveItem(int id)
     {
-        Item itemToAdd = itemDatabase.GetItem(id);
-        Debug.Log(itemToAdd.title);
+        Item itemToAdd = v_itemDatabase.GetItem(id);
+        Debug.Log("Le di un nuevo item llamado: " + itemToAdd.title);
         inventoryUI.AddItemToUI(itemToAdd);
         playerItems.Add(itemToAdd);
+    }
+
+    public Item RandomItem()
+    {
+        int maxValue = v_itemDatabase.MaxItemCount();
+        int newItemID = Random.Range(1, maxValue); //Obtiene un numero entre 1 y el maxValue, que es el conteo de items en la lista de items.
+        Item itemToAdd = v_itemDatabase.GetItem(newItemID);
+        Debug.Log("Generé el item aleatorio: " + itemToAdd.title);
+        return itemToAdd;
     }
 
     public Item CheckForItem(int id)
