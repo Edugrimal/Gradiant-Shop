@@ -21,13 +21,13 @@ public class Shop : MonoBehaviour
     {
         if (v_Npc.requestInProgress) //Si el request aun no ha sido completado
         {
-            Inventory inventory = FindObjectOfType<Inventory>(); //Mando llamar mis variables de inventario para modificarlas
+            Inventory v_inventory = FindObjectOfType<Inventory>(); //Mando llamar mis variables de inventario para modificarlas
             //SpendGold(v_Npc.requestedItem.soldPrice); 
-            AddGold(v_Npc.requestedItem.soldPrice); 
-            inventory.RemoveItem(v_Npc.requestedItem.id); // Se manda como parametro el ID del Item del NPC y el inventorio se encarga de quitarlo de ahi
+            //v_inventory.RemoveItem(v_Npc.requestedItem.id); // Se manda como parametro el ID del Item del NPC y el inventorio se encarga de quitarlo de ahi
+            v_inventory.playerItems.Remove(v_Npc.requestedItem);// Se manda como parametro el ID del Item del NPC y el inventorio se encarga de quitarlo de ahi
+            AddGold(v_Npc.requestedItem.soldPrice); // Le agregamos Gold al jugador por el costo del item en venta
             v_Npc.requestInProgress = false;
-            Debug.Log("El NPC compro " + v_Npc.requestedItem.description + " a la cantidad de "+ v_Npc.requestedItem.soldPrice + " Gold");
-
+            Debug.Log("El NPC compro <b>" + v_Npc.requestedItem.description + "</b> a la cantidad de <b>" + v_Npc.requestedItem.soldPrice + "</b> Gold");
         }
         else
         {

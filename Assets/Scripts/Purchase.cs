@@ -18,6 +18,6 @@ public class Purchase : MonoBehaviour
     {
         v_inventory.GiveItem(1);//Agrega una nueva pocion roja EJEMPLO
         v_shop.SpendGold(30); //Agrega dinero restado al player EJEMPLO
-        Debug.Log("Se agregaron 30 monedas al Player.");
+        Debug.Log("Se agregó una pocion roja y se quitaron 30 monedas al Player.");
     }
 }

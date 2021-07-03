@@ -8,18 +8,21 @@ public class UINpcSlot : MonoBehaviour
     public SlotPanel slotPanel;
     public Inventory inventory;
     public Item itemToSellToNPC;
+    public Shop v_shop;
 
     public Npc v_npc;
     private List<UIItem> uiItems = new List<UIItem>();
     public UIItem sellToNPCSlot;
     public void CollectCraftResult()
     {
-        slotPanel.RemoveItem(GetComponent<UIItem>().item); // Se quita el item del slot visualmente
-        inventory.playerItems.Remove(GetComponent<UIItem>().item); // se quita el item de la lista de inventario del Player
-        Debug.Log("Entre a CollectCraftResult");
+        //slotPanel.RemoveItem(GetComponent<UIItem>().item); // Se quita el item del slot visualmente
+        slotPanel.EmptyAllSlots(); // Se manda llamar el eliminado de la lista del craftingtable cuando se dragndrop el nuevo item combinado
+        //inventory.playerItems.Remove(GetComponent<UIItem>().item); // se quita el item de la lista de inventario del Player
+        Debug.Log("Vendí el item successfully");
+        v_shop.SellPotionToNpc(); //Agrega dinero restado al player EJEMPLO
     }
 
-    public void UpdateRecipe() 
+    public void UpdateRecipe()
     {
         int[] itemTable = new int[uiItems.Count];
         Debug.Log("El conteo es de : " + uiItems.Count);
@@ -27,17 +30,19 @@ public class UINpcSlot : MonoBehaviour
         {
             if (uiItems[i].item != null)
             {
-                if(v_npc.requestedItem.id == uiItems[i].item.id) // El ID de la variable item requestedItem del NPC es comparado con el ID que tenga el slotNpc
+                if (v_npc.requestedItem.id == uiItems[i].item.id) // El ID de la variable item requestedItem del NPC es comparado con el ID que tenga el slotNpc
                 {
                     itemToSellToNPC = uiItems[i].item;
-                    Debug.Log("Entre a UpdateRecipe dentro del loop: "+ i);
+                    Debug.Log("Entre a UpdateRecipe dentro del loop: " + i);
+                    CollectCraftResult(); //quitamos el item del slot de sellToNPC
+                    uiItems[i].npcSlotOnPointerDown = true;
                 }
+                else
+                {
+                    Debug.Log("No es el item que quiero");
+                }
+            }
 
-            }
-            else
-            {
-                Debug.Log("No es el item que quiero");
-            }
         }
         UpdateCraftingResultSlot(itemToSellToNPC);
     }
@@ -48,6 +53,7 @@ public class UINpcSlot : MonoBehaviour
     }
     private void Start()
     {
+        v_shop = FindObjectOfType<Shop>();
         slotPanel = FindObjectOfType<SlotPanel>();
         inventory = FindObjectOfType<Inventory>();
         uiItems = slotPanel.uiItems;

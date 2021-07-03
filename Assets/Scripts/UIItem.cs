@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class UIItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler {
+public class UIItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
+{
     public Item item;
     private Image spriteImage;
     private UIItem selectedItem;
@@ -34,7 +35,7 @@ public class UIItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, 
         if (this.item != null)
         {
             spriteImage.color = Color.white;// Desplegamos el item y su icono
-            spriteImage.sprite = item.icon;     
+            spriteImage.sprite = item.icon;
         }
         else
         {
@@ -50,16 +51,30 @@ public class UIItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, 
             npcSlot = false;
             Debug.Log("Entre a npcSlot");
             v_UINpcSlots.UpdateRecipe();
-            npcSlotOnPointerDown = true;
-        }
-        else
-        {
-            Debug.Log("FALSE No existo como npcSlot");
         }
     }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (this.item != null)
+        {
+            if (selectedItem.item != null && !craftedItemSlot)
+            {
+                Debug.Log("Entre 1 Mike");
 
+            }
+            else if (selectedItem.item == null && npcSlotOnPointerDown) //Si el item que quiere el NPC es correcto, entro aqui
+            {
+                npcSlotOnPointerDown = false;
+                Debug.Log("Entre 2 Mike");
+                selectedItem.UpdateItem(null); // Borro el item del cursor porque es consumido por el NPC
+                UpdateItem(null);              // Borro el item del slot porque ya fue completado el request    
+            }
+        }
+    }
     public void OnPointerDown(PointerEventData eventData)
     {
+        Debug.Log("Nuevo OnPointerDown 1");
+
         if (this.item != null)
         {
             if (selectedItem.item != null && !craftedItemSlot)
@@ -70,23 +85,28 @@ public class UIItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, 
             }
             else if (selectedItem.item == null)
             {
+                Debug.Log("Nuevo OnPointerDown 2");
                 selectedItem.UpdateItem(this.item);
                 UpdateItem(null);
                 if (craftedItemSlot)
                 {
-                    GetComponent<UICraftResult>().CollectCraftResult();
+                    Debug.Log("Nuevo OnPointerDown 3");
                     Debug.Log("Entre a CollectCraftResult de craftedItemSlot");
+                    GetComponent<UICraftResult>().CollectCraftResult();
                 }
+                /*
                 if (npcSlotOnPointerDown) // Se agregó para saber si existe un item correcto para el NPC 
                 {
+                    npcSlotOnPointerDown = false;
                     Debug.Log("Entre a OnPointerDown a CollectCraftResult de npcSlot");
                     v_UINpcSlots.CollectCraftResult();
-                    npcSlotOnPointerDown = false;
                 }
+                */
             }
         }
         else if (selectedItem.item != null && !craftedItemSlot)
         {
+            Debug.Log("Nuevo OnPointerDown 4");
             UpdateItem(selectedItem.item);
             selectedItem.UpdateItem(null);
         }
