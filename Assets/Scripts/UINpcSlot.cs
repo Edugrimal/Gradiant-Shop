@@ -22,7 +22,7 @@ public class UINpcSlot : MonoBehaviour
         v_shop.SellPotionToNpc(); //Agrega dinero restado al player EJEMPLO
     }
 
-    public void UpdateRecipe()
+    public void UpdateRecipe( )
     {
         int[] itemTable = new int[uiItems.Count];
         Debug.Log("El conteo es de : " + uiItems.Count);
@@ -36,15 +36,20 @@ public class UINpcSlot : MonoBehaviour
                     Debug.Log("Entre a UpdateRecipe dentro del loop: " + i);
                     CollectCraftResult(); //quitamos el item del slot de sellToNPC
                     uiItems[i].npcSlotOnPointerDown = true;
+                    uiItems[i].npcSlot = false;
+                    UpdateCraftingResultSlot(itemToSellToNPC);
                 }
                 else
                 {
                     Debug.Log("No es el item que quiero");
+                    itemToSellToNPC = uiItems[i].item;
+                    //CollectCraftResult(false); //quitamos el item del slot de sellToNPC
+                    uiItems[i].npcSlotOnPointerDown = true;
+                    uiItems[i].npcSlot = true;
                 }
             }
 
         }
-        UpdateCraftingResultSlot(itemToSellToNPC);
     }
     void UpdateCraftingResultSlot(Item itemToSellToNPC)
     {

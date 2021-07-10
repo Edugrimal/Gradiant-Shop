@@ -17,7 +17,6 @@ public class UIItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, 
     public bool npcSlot = false;
     public bool npcSlotOnPointerDown = false;
 
-
     private void Awake()
     {
         craftingSlots = FindObjectOfType<CraftingSlots>();
@@ -46,9 +45,9 @@ public class UIItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, 
             craftingSlots.UpdateRecipe();
             Debug.Log("TRUE Si existo como craftingSlot");
         }
-        if (npcSlot) //Si existe un item en el slot de crafteo
+        if (npcSlot) //Si existe un item en el slot de crafteo, y el item npcItemMatch es true (item que evita loop infinito)
         {
-            npcSlot = false;
+            //npcSlot = false;
             Debug.Log("Entre a npcSlot");
             v_UINpcSlots.UpdateRecipe();
         }
@@ -59,15 +58,24 @@ public class UIItem : MonoBehaviour, IPointerDownHandler, IPointerEnterHandler, 
         {
             if (selectedItem.item != null && !craftedItemSlot)
             {
-                Debug.Log("Entre 1 Mike");
+                Debug.Log("Entre 1 al OnPointerClick");
 
             }
-            else if (selectedItem.item == null && npcSlotOnPointerDown) //Si el item que quiere el NPC es correcto, entro aqui
+            else if (selectedItem.item == null && npcSlotOnPointerDown) // validamos que haya entrado en un slot de tipo NPC
             {
-                npcSlotOnPointerDown = false;
-                Debug.Log("Entre 2 Mike");
-                selectedItem.UpdateItem(null); // Borro el item del cursor porque es consumido por el NPC
-                UpdateItem(null);              // Borro el item del slot porque ya fue completado el request    
+                if (npcSlot) //NPC slot es el boleano que indica true si se presionó en el slot tipo NPC. Después se usa para validar si el item seleccionado es igual al item que quiere NPC
+                {
+                    npcSlotOnPointerDown = false;
+                    Debug.Log("Entre 3 al OnPointerClick");
+                    selectedItem.UpdateItem(this.item); // Como no es el item, le dejo el item al cursor
+                    UpdateItem(null);                   // Borro el item del slot porque no era el item del NPC  
+                } else // Como ya se que es false el slot, significa que ya encontré el item que quiere el npc. Aqui borro el item del seleccionado y del slot npc
+                {
+                    npcSlotOnPointerDown = false;
+                    Debug.Log("Entre 2 al OnPointerClick");
+                    selectedItem.UpdateItem(null); // Borro el item del cursor porque es consumido por el NPC
+                    UpdateItem(null);              // Borro el item del slot porque ya fue completado el request  
+                }
             }
         }
     }
